@@ -7,31 +7,27 @@ public class BusDriving : MonoBehaviour
     private Quaternion originalRotation;
 
     [SerializeField] private float speed;
-    [SerializeField] private float steeringSpeed;
-    [SerializeField] private float driftSpeed;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        originalRotation = transform.rotation;
-    }
+    [SerializeField] private float steeringSpeed;   // Degrees per second
+    [SerializeField] private float driftSpeed;      // Degrees per second
 
     // Update is called once per frame
     void Update()
     {
         AutoDrive();
-        StandertDrift();
+        StandartDrift();
 
-        var maxRotation = Quaternion.Euler(0, 40, 0);
-        var rotation = maxRotation.eulerAngles;
+        Steering();
+    }
 
+    private void Steering()
+    {
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(rotation * steeringSpeed * Time.deltaTime);            
+            transform.Rotate(0, steeringSpeed * Time.deltaTime, 0);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(-rotation * steeringSpeed * Time.deltaTime);
+            transform.Rotate(0, -steeringSpeed * Time.deltaTime, 0);
         }
     }
 
@@ -40,10 +36,9 @@ public class BusDriving : MonoBehaviour
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
-    private void StandertDrift()
+    private void StandartDrift()
     {
-        var maxRotation = Quaternion.Euler(0, 20, 0);
-        var rotation = maxRotation.eulerAngles;
-        transform.Rotate(rotation * driftSpeed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) return;
+        transform.Rotate(0, driftSpeed * Time.deltaTime, 0);
     }
 }
