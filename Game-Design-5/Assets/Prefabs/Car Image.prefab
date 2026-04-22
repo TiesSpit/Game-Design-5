@@ -90,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxClockwiseRotation: 60
   maxAntiClockwiseRotation: -60
+  rotateSpeed: 60
   currentRotation: 0
   currentEnumRotation: 1
 --- !u!1 &3678890545792177407
