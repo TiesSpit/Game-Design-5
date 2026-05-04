@@ -18,6 +18,20 @@ public class RotatingArm : MonoBehaviour
     [SerializeField] private Rotation currentEnumRotation;
 
 
+    public static RotatingArm Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
     public void LeftRotation()
     {
         SetRotation(Rotation.left);
@@ -52,8 +66,8 @@ public class RotatingArm : MonoBehaviour
     {
         switch (pRotation)
         {
-            case Rotation.left: return maxClockwiseRotation;
-            case Rotation.right: return maxAntiClockwiseRotation;
+            case Rotation.left: return maxAntiClockwiseRotation;
+            case Rotation.right: return maxClockwiseRotation;
             default: return 0;
         }
     }

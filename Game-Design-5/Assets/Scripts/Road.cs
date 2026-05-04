@@ -7,13 +7,18 @@ public class Road : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(collision.gameObject);            
+        if (collision.transform.tag.ToLower() == "player")
+        {
+            Destroy(collision.gameObject);
+            GameOver.Instance?.DoGameOver();
+        }
+
     }
     private void OnTriggerEnter(Collider other)
     {
         if (!spawned)
         {
-            if (!other.CompareTag("Player")) return;                            
+            if (!other.CompareTag("Player")) return;                         
             Vector3 roadSize = new Vector3(0, 0, transform.localScale.z * 6.25f);
 
             Instantiate(road, transform.position + roadSize, Quaternion.identity);
