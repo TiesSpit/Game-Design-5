@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GameOver : MonoBehaviour
@@ -7,6 +8,8 @@ public class GameOver : MonoBehaviour
 
     [SerializeField]
     private GameObject crackedGlass;
+
+    [SerializeField] private string LoseSceneName = "LoseScene";
 
     public static GameOver Instance;
 
@@ -27,6 +30,7 @@ public class GameOver : MonoBehaviour
     {
         crackedGlass.SetActive(true);
         isGameOver = true;
+        SceneSwitcher.Instance?.SwitchScene(LoseSceneName);
     }
 
     public bool IsGameOver() { return isGameOver; }
